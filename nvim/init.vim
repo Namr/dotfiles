@@ -26,7 +26,8 @@ set smartindent
 set scrolloff=8
 
 " Start plugin section
-call plug#begin('~/sourceBuilds/vimpluggins')
+"call plug#begin('~/sourceBuilds/vimpluggins')
+call plug#begin('~/fromSource/vimpluggins')
 
 Plug 'morhetz/gruvbox'
 
@@ -38,6 +39,8 @@ Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sbdchd/neoformat'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 autocmd vimenter * ++nested colorscheme gruvbox
@@ -57,7 +60,20 @@ if executable('ccls')
       \ },
       \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
       \ })
+ endif
+
+" Python language server setup
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
 endif
+
+" File ending remapping
+au BufNewFile,BufRead *.overlay setlocal ft=dts
 
 " C++ Tags
 let  g:gutentags_ctags_tagfile = '.tags'
@@ -75,11 +91,17 @@ let g:neoformat_cpp_clangformat = {
 \}
 let g:neoformat_enabled_cpp = ['clangformat']
 let g:neoformat_enabled_c = ['clangformat']
+let g:neoformat_enabled_python = ['yapf']
 
 "remappings
 inoremap jk <ESC>
 nnoremap <leader>ft :Neoformat<CR>
 
+"telescope
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 "Format on file save
 "augroup fmt
 "  autocmd!

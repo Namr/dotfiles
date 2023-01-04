@@ -147,6 +147,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#lock the screen
+bindsym $mod+Control+l exec i3lock -t -i "/home/amoussa/Downloads/linux-gruvbox-1920×1080.jpg"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -260,6 +262,7 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
+exec_always --no-startup-id feh --bg-scale $HOME/Downloads/linux-gruvbox-1920×1080.jpg
+
 # Polybar Launch Script
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-

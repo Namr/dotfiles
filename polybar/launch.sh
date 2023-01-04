@@ -7,8 +7,13 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch
-for m in $(polybar --list-monitors | cut -d":" -f1); do
-    MONITOR=$m polybar --reload bar &
-done
-
+if (polybar --list-monitors | grep "DP-1-2"); then
+  polybar --reload chonk &
+fi
+if (polybar --list-monitors | grep "DP-1"); then
+  polybar --reload ultrawide &
+fi
+if (polybar --list-monitors | grep "eDP-1"); then
+  polybar --reload internal &
+fi
 echo "Bar launched..."
