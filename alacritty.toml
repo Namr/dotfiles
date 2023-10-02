@@ -1,0 +1,82 @@
+window.opacity = 0.92
+working_directory = "None"
+
+[[colors.indexed_colors]]
+color = "0xfe8019"
+index = 16
+
+[[colors.indexed_colors]]
+color = "0xd65d0e"
+index = 17
+
+[[colors.indexed_colors]]
+color = "0x3c3836"
+index = 18
+
+[[colors.indexed_colors]]
+color = "0x504945"
+index = 19
+
+[[colors.indexed_colors]]
+color = "0xbdae93"
+index = 20
+
+[[colors.indexed_colors]]
+color = "0xebdbb2"
+index = 21
+
+[colors.bright]
+black = "0x665c54"
+blue = "0x83a598"
+cyan = "0x8ec07c"
+green = "0xb8bb26"
+magenta = "0xd3869b"
+red = "0xfb4934"
+white = "0xfbf1c7"
+yellow = "0xfabd2f"
+
+[colors.cursor]
+cursor = "0xd5c4a1"
+text = "0x32302f"
+
+[colors.normal]
+black = "0x32302f"
+blue = "0x83a598"
+cyan = "0x8ec07c"
+green = "0xb8bb26"
+magenta = "0xd3869b"
+red = "0xfb4934"
+white = "0xd5c4a1"
+yellow = "0xfabd2f"
+
+[colors.primary]
+background = "0x32302f"
+foreground = "0xd5c4a1"
+
+[cursor]
+style = "Block"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 14
+
+[font.normal]
+family = "Terminess Nerd Font"
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[shell]
+args = ["--login"]
+program = "/bin/zsh"
+
+[window.dimensions]
+columns = 140
+lines = 38
+
+[window.padding]
+x = 10
+y = 10

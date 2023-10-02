@@ -29,48 +29,8 @@ primary = #1f222d
 secondary = #FF6200
 alert = #fb4934
 
-[bar/internal]
-monitor = eDP-1
-bottom = true
-wm-restack = i3
-width = 1920
-height = 26
-offset-x = 11
-offset-y = 11
-
-locale = en_US.UTF-8
-
-enable-ipc = true
-
-padding-left = 0
-padding-right = 0
-
-module-margin-right = 0
-module-margin-left = 0
-
-modules-right = keyboard separator network separator battery separator date
-modules-left = i3
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-underline-size = 0
-underline-color = ${colors.white}
-
-tray-detached = false
-tray-position = 
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
-tray-transparent = false
-tray-scale = 1.0
-
-font-0 = "monospace:size=12;2"
-font-1 = "Font Awesome 6 Free:size=12;2"
-
-[bar/chonk]
-monitor = DP-1-2
+[bar/left]
+monitor = DP-0
 bottom = true
 wm-restack = i3
 width = 2560
@@ -106,14 +66,14 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = "monospace:size=12;2"
-font-1 = "Font Awesome 6 Free:size=12;2"
+font-0 = "Terminus (TTF):size=12;2"
+font-1 = "Terminus (TTF):size=12;2"
 
-[bar/ultrawide]
-monitor = DP-2
+[bar/right]
+monitor = DP-4
 bottom = true
 wm-restack = i3
-width = 3440
+width = 2560
 height = 26
 offset-x = 11
 offset-y = 11
@@ -146,9 +106,8 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = "monospace:size=12;2"
-font-1 = "Font Awesome 6 Free:size=12;2"
-
+font-0 = "Terminus (TTF):size=12;2"
+font-1 = "Terminus (TTF):size=12;2"
 
 [module/i3]
 type = internal/i3
@@ -313,6 +272,4 @@ poll-interval = 5
 type = custom/text
 content = |
 content-foreground = #4e4e4e
-
-; vim:ft=dosini
 
