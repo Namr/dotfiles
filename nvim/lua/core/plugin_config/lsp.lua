@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_instaleld = {"lua_ls", "clangd", "erlang-ls", "gopls"}
+  ensure_instaleld = {"lua_ls", "clangd", "erlang-ls", "gopls", "rust-analyzer"}
 })
 
 local cmp = require("cmp")
@@ -59,8 +59,12 @@ require("lspconfig").lua_ls.setup {
 }
 
 require("lspconfig").clangd.setup {
-  on_attach = on_attach,
+  cmd = {
+    "clangd-15",
+    '--query-driver="/opt/st/stm32cubeide_1.16.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.0.200.202406132123/tools/bin/arm-none-eabi-gcc"'
+  },
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 require("lspconfig").erlangls.setup {

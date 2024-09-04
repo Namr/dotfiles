@@ -21,14 +21,16 @@ font pango:Terminess Nerd Font 12
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+#exec --no-startup-id dex --autostart --environment i3
+
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- swaylock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -37,16 +39,13 @@ exec --no-startup-id nm-applet
 # turn off titles
 default_border pixel 1
 
-gaps outer 12
-gaps inner 12
-
 # wallpaper
 exec_always feh --bg-scale /home/amr/Pictures/wallpaper-n64.png
 
 # transparency
 exec --no-startup-id compton
 
-bindsym $mod+Control+l exec i3lock -t -i "/home/amr/Pictures/wallpaper-n64.png"
+bindsym $mod+Control+l exec swaylock -t -i "/home/amr/Pictures/wallpaper-n64.png"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -60,11 +59,11 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+#tiling_drag modifier titlebar
 
 # move between monitors
-bindsym $mod+Shift+greater move workspace to output right
-bindsym $mod+Shift+less move workspace to output left
+bindsym $mod+Alt+l move workspace to output right
+bindsym $mod+Alt+h move workspace to output left
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -72,30 +71,29 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# start rofi (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
 
 # colors
 # set primary gruvbox colorscheme colors
-set $bg #282828
-set $red #cc241d
-set $green #98971a
-set $yellow #d79921
-set $blue #458588
-set $purple #b16286
-set $aqua #689d68
-set $gray #a89984
-set $darkgray #1d2021
+gaps outer 20
+gaps inner 10
+smart_gaps on
 
-client.focused          $green $green $darkgray $purple $darkgray
-client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-client.urgent           $red $red $white $red $red
+set $bg 	#689d6a
+set $bg-inactive   #323232
+set $bg-urgent     #000000
+set $text          #ebdbb2
+set $text-inactive #babdb6
+
+set $bar           #323232
+set $statusline    #e0e0e0
+
+client.focused          $bg           $bg          $text          $bg $bg
+client.unfocused        $bg-inactive  $bg-inactive $text-inactive $bar $bar
+client.focused_inactive $bg-inactive  $bg-inactive $text-inactive $bar $bar
+client.urgent           $bg-urgent    $bg-urgent   $text          $bar $bar
 
 # change focus
 bindsym $mod+h focus left
@@ -189,7 +187,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'swaymsg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -219,4 +217,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Polybar Launch Script
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id pkill waybar; exec waybar
+exec_always --no-startup-id pkill kanshi; kanshi
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

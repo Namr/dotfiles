@@ -24,3 +24,4 @@ end
 local silentnoremap = {noremap = true, silent = true}
 
 map('i', 'jk', '<ESC>', silentnoremap)
+vim.api.nvim_set_option("clipboard", "unnamedplus")
